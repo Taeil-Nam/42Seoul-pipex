@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:31 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 17:27:02 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/03 21:25:46 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,7 @@ static void	ft_first_cmd(t_var *var)
 		ft_error();
 	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
-	{
-		write(2, var->cmd_path, ft_strlen(var->cmd_path));
-		write(2, "\n", 1);
-		write(2, var->cmd[0], ft_strlen(var->cmd[0]));
-		write(2, "\n", 1);
 		ft_error();
-	}
 }
 
 static void	ft_middle_cmd(t_var *var)

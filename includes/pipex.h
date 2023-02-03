@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:24:54 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 17:33:56 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/03 21:19:32 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define CHILD 0
 # define IN 0
+# define SUCCESS 0
 # define OUT 1
 # define ERROR -1
 # define NONE -1

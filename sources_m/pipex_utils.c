@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:44:36 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 17:25:33 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/03 22:13:38 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ void	ft_error(void)
 {
 	perror(NULL);
 	exit(errno);
+}
+
+static void	ft_cmd_not_found_error(t_var *var)
+{
+	write(1, "command not found: ", 19);
+	write(1, var->cmd[0], ft_strlen(var->cmd[0]));
+	write(1, "\n", 1);
+	exit(127);
+}
+
+static int	ft_check_cmd_is_absolute_path(t_var *var)
+{
+	if (access(var->cmd[0], X_OK) == SUCCESS)
+	{
+		var->cmd_path = var->cmd[0];
+		return (1);
+	}
+	return (0);
 }
 
 static char	*ft_make_cmd_path(t_var *var, char *path)
@@ -42,25 +60,23 @@ void	ft_find_cmd_path(t_var *var)
 	char	*cmd_path;
 
 	var->cmd = ft_split(var->argv[var->cmd_i], ' ');
+	if (var->cmd == NULL)
+		exit(1);
+	if (ft_check_cmd_is_absolute_path(var))
+		return ;
 	i = 0;
 	while (var->paths[i])
 	{
 		cmd_path = ft_make_cmd_path(var, var->paths[i]);
-		if (access(cmd_path, X_OK) == 0)
+		if (access(cmd_path, X_OK) == SUCCESS)
 		{
 			var->cmd_path = cmd_path;
 			var->cmd_isin = 1;
-			free(cmd_path);
 			break ;
 		}
 		free(cmd_path);
 		i++;
 	}
-	if (var->cmd_isin == -1)
-	{
-		write(1, "command not found: ", 19);
-		write(1, var->cmd[0], ft_strlen(var->cmd[0]));
-		write(1, "\n", 1);
-		exit(127);
-	}
+	if (var->cmd_isin == 0)
+		ft_cmd_not_found_error(var);
 }

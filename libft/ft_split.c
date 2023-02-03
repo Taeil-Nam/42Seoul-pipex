@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 18:05:32 by tnam              #+#    #+#             */
-/*   Updated: 2023/01/30 16:09:40 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/03 22:06:32 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ char	**ft_split(char const *s, char c)
 	{
 		free(str_to_null);
 		return (0);
-	}
-	if (sub_str_count == 0)
-	{
-		result[0] = 0;
-		free(str_to_null);
-		return (result);
 	}
 	result = ft_split_str(str_to_null, str_len, result);
 	free(str_to_null);
