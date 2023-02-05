@@ -12,6 +12,7 @@ $> < infile ls -l | wc -l > outfile
 - Makefile로 프로그램 컴파일 해야하고, 리링크 방지해줘야 함.
 - 예상치 못한 종료(segmentation fault, double free...)가 생기면 안되며, 메모리 누수 나면 안됨.
 - 만약 에러가 발생하는 경우로 의심된다면, 쉘 명령어로 실행했을 때와 동일하게 처리하면 됨.
+
 ## 보너스
 - 다중 명령어 가능하게 구현.
 ```
@@ -25,3 +26,7 @@ $> ./pipex here_doc LIMITER cmd cmd1 file
 = 쉘에서 아래와 같이 입력했을 때처럼 동작해야 함.
 $> cmd << LIMITER | cmd1 >> file
 ```
+
+## 사용 방법
+- make = Mandatory용 실행 파일 생성.
+- make bonus = Bonus용 실행 파일 생성.
