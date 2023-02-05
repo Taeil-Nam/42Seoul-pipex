@@ -6,56 +6,63 @@
 #    By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/03 16:17:47 by tnam              #+#    #+#              #
-#    Updated: 2023/02/04 20:23:06 by tnam             ###   ########.fr        #
+#    Updated: 2023/02/05 16:45:27 by tnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# 수정 필요 (2023/02/04)
-# - 꼭 오브젝트 파일로 만들어서 링크 시켜줘야 하는지?
-
 NAME			=	pipex
-
 CC				=	cc
 CFLAG			=	-Wall -Wextra -Werror
-
 RM				=	rm -f
 
-HEADERS_DIR		=	./includes/
-HEADERS			=	$(HEADERS_DIR)pipex.h
+LIBFT_DIR		=	libft/
+LIBFT			=	libft.a
+LIBFT_C			=	-L$(LIBFT_DIR) -lft
 
-SRCS_M_DIR		=	./sources_m/
-SRCS_M			=	pipex.c			\
-					pipex_child.c	\
-					pipex_parent.c	\
-					pipex_utils.c
+INCLUDES		=	includes/
 
-SRCS_B_DIR		=	./sources_m/
-SRCS_B			=	pipex.c			\
-					pipex_child.c	\
-					pipex_parent.c	\
-					pipex_utils.c
-
-LIBFT_DIR		=	./libft/
-LIBFT			=	$(LIBFT_DIR)libft.a
-LIBFT_COMPILE	=	-L $(LIBFT_DIR) -l$(LIBFT)
+SRCS_M			=	srcs/pipex.c			\
+					srcs/pipex_child.c		\
+					srcs/pipex_parent.c		\
+					srcs/pipex_utils.c
+					
+SRCS_B			=	srcs/pipex_bonus.c			\
+					srcs/pipex_child_bonus.c	\
+					srcs/pipex_parent_bonus.c	\
+					srcs/pipex_utils_bonus.c
+					
+OBJS_M			=	$(SRCS_M:.c=.o)
+OBJS_B			=	$(SRCS_B:.c=.o)
 
 BONUS_MODE = $(findstring $(MAKECMDGOALS),bonus)
+
+ifeq ($(BONUS_MODE), )
+    OBJS = $(OBJS_M)
+else
+    OBJS = $(OBJS_B)
+endif
 
 all: $(NAME)
 
 bonus: $(NAME)
 
-$(NAME): $(SRCS_M_DIR)$(SRCS_M) $(LIBFT) $(if $(BONUS_MODE),$(SRCS_M_DIR)$(SRCS_B))
-	$(CC) $(CFLAG) $(SRCS_M_DIR)$(SRCS_M) $(LIBFT_COMPILE) -o $(NAME)
+$(NAME): $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) all
+	$(CC) $(CFLAG) -I$(INCLUDES) $(OBJS) $(LIBFT_C) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAG) -I$(INCLUDES) -c $< -o $@
 
 clean :
+	$(MAKE) -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS_M) $(OBJS_B)
 
 fclean : clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
 re:
 	make fclean
 	make all
 
-.PHONY : all clean fclean re bonus
+.PHONY : all bonus clean fclean re
