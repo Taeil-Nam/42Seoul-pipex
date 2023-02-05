@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 22:26:53 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/05 19:29:32 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_init_variables(t_var *var, int argc, char *argv[], char *envp[])
 	path = var->envp[i] + 5;
 	var->paths = ft_split(path, ':');
 	if (var->paths == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 }
 
 void	ft_exec_cmd(t_var *var)
