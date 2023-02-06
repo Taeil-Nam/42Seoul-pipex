@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 16:07:05 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 19:14:02 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_exec_cmd(t_var *var)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_var	var;
+	int		i;
 
 	if (argc < 5)
 		return (EXIT_FAILURE);
@@ -70,6 +71,12 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		ft_exec_cmd(&var);
 		var.cmd_i++;
+	}
+	i = 0;
+	while (i++ < argc - 3)
+	{
+		if (wait(NULL) == ERROR)
+			ft_error();
 	}
 	return (0);
 }

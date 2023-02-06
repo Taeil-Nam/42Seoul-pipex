@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:31 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 21:25:46 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 19:26:01 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static void	ft_first_cmd(t_var *var)
 	var->infile_fd = open(var->argv[1], O_RDONLY);
 	if (var->infile_fd == ERROR)
 		ft_error();
-	if (dup2(var->infile_fd, 0) == ERROR)
+	if (dup2(var->infile_fd, STDIN_FILENO) == ERROR)
 		ft_error();
-	if (dup2(var->pipe_fd[1], 1) == ERROR)
+	if (dup2(var->pipe_fd[OUT], STDOUT_FILENO) == ERROR)
 		ft_error();
 	if (close(var->infile_fd) == ERROR)
 		ft_error();
-	if (close(var->pipe_fd[0]) == ERROR)
+	if (close(var->pipe_fd[IN]) == ERROR)
 		ft_error();
-	if (close(var->pipe_fd[1]) == ERROR)
+	if (close(var->pipe_fd[OUT]) == ERROR)
 		ft_error();
 	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
@@ -34,15 +34,15 @@ static void	ft_first_cmd(t_var *var)
 
 static void	ft_middle_cmd(t_var *var)
 {
-	if (dup2(var->prev_pipe_fd, 0) == ERROR)
+	if (dup2(var->prev_pipe_fd, STDIN_FILENO) == ERROR)
 		ft_error();
-	if (dup2(var->pipe_fd[1], 1) == ERROR)
+	if (dup2(var->pipe_fd[OUT], STDOUT_FILENO) == ERROR)
 		ft_error();
 	if (close(var->prev_pipe_fd) == ERROR)
 		ft_error();
-	if (close(var->pipe_fd[0]) == ERROR)
+	if (close(var->pipe_fd[IN]) == ERROR)
 		ft_error();
-	if (close(var->pipe_fd[1]) == ERROR)
+	if (close(var->pipe_fd[OUT]) == ERROR)
 		ft_error();
 	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
@@ -52,12 +52,12 @@ static void	ft_middle_cmd(t_var *var)
 static void	ft_last_cmd(t_var *var)
 {
 	var->outfile_fd = open(var->argv[var->argc - 1], O_WRONLY
-			| O_CREAT | O_TRUNC | 0644);
+			| O_CREAT | O_TRUNC, 0644);
 	if (var->outfile_fd == ERROR)
 		ft_error();
-	if (dup2(var->prev_pipe_fd, 0) == ERROR)
+	if (dup2(var->prev_pipe_fd, STDIN_FILENO) == ERROR)
 		ft_error();
-	if (dup2(var->outfile_fd, 1) == ERROR)
+	if (dup2(var->outfile_fd, STDOUT_FILENO) == ERROR)
 		ft_error();
 	if (close(var->prev_pipe_fd) == ERROR)
 		ft_error();
