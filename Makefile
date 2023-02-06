@@ -6,7 +6,7 @@
 #    By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/03 16:17:47 by tnam              #+#    #+#              #
-#    Updated: 2023/02/05 16:45:27 by tnam             ###   ########.fr        #
+#    Updated: 2023/02/06 14:34:08 by tnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,10 @@ SRCS_M			=	srcs/pipex.c			\
 SRCS_B			=	srcs/pipex_bonus.c			\
 					srcs/pipex_child_bonus.c	\
 					srcs/pipex_parent_bonus.c	\
-					srcs/pipex_utils_bonus.c
+					srcs/pipex_utils_bonus.c	\
+					srcs/pipex_here_doc_bonus.c	\
+					gnl/get_next_line.c			\
+					gnl/get_next_line_utils.c	\
 					
 OBJS_M			=	$(SRCS_M:.c=.o)
 OBJS_B			=	$(SRCS_B:.c=.o)

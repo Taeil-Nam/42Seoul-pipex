@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 12:02:22 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 16:07:05 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	ft_init_variables(t_var *var, int argc, char *argv[], char *envp[])
 	path = var->envp[i] + 5;
 	var->paths = ft_split(path, ':');
 	if (var->paths == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
+}
+
+void	ft_here_doc_init(t_var *var)
+{
+	var->here_doc = 1;
+	var->limiter = var->argv[2];
+	var->cmd_i = 3;
 }
 
 void	ft_exec_cmd(t_var *var)
@@ -55,10 +62,10 @@ int	main(int argc, char *argv[], char *envp[])
 	t_var	var;
 
 	if (argc < 5)
-		return (1);
+		return (EXIT_FAILURE);
 	ft_init_variables(&var, argc, argv, envp);
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		ft_here_doc(&var);
+		ft_here_doc_init(&var);
 	while (var.cmd_i < argc - 1)
 	{
 		ft_exec_cmd(&var);

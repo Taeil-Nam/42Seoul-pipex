@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:24 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 12:11:51 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 16:12:16 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	ft_parent(t_var *var)
 {
-	if (var->here_doc)
+	if (var->here_doc && var->cmd_i == 3)
 	{
-		waitpid(var->pid, NULL, NULL);
-		var->here_doc = 0;
+		if (waitpid(var->pid, NULL, 0) == ERROR)
+			ft_error();
+		if (unlink("temp") == ERROR)
+			ft_error();
 	}
 	else
 	{
@@ -26,11 +28,11 @@ void	ft_parent(t_var *var)
 	}
 	if (var->cmd_i != var->argc - 2)
 	{
-		if (close(var->pipe_fd[1]) == ERROR)
+		if (close(var->pipe_fd[OUT]) == ERROR)
 			ft_error();
 	}
 	if (var->prev_pipe_fd != NONE)
 		if (close(var->prev_pipe_fd) == ERROR)
 			ft_error();
-	var->prev_pipe_fd = var->pipe_fd[0];
+	var->prev_pipe_fd = var->pipe_fd[IN];
 }

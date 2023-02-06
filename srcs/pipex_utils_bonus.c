@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:44:36 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 11:38:25 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 16:06:22 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static char	*ft_make_cmd_path(t_var *var, char *path)
 
 	temp = ft_strjoin(path, "/");
 	if (temp == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	result = ft_strjoin(temp, var->cmd[0]);
 	if (result == NULL)
 	{
 		free(temp);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	free(temp);
 	return (result);
@@ -61,7 +61,7 @@ void	ft_find_cmd_path(t_var *var)
 
 	var->cmd = ft_split(var->argv[var->cmd_i], ' ');
 	if (var->cmd == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	if (ft_check_cmd_is_absolute_path(var))
 		return ;
 	i = 0;

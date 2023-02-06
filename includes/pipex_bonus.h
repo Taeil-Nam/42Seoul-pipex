@@ -6,12 +6,12 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:24:54 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 12:01:37 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 14:36:37 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
-# define PIPEX_H
+# define PIPEX_BONUS_H
 
 # define CHILD 0
 # define IN 0
@@ -21,6 +21,7 @@
 # define NONE -1
 
 # include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include <unistd.h>
 # include <sys/wait.h>
 # include <fcntl.h>
@@ -51,5 +52,6 @@ void	ft_child(t_var *var);
 void	ft_parent(t_var *var);
 void	ft_find_cmd_path(t_var *var);
 void	ft_error(void);
-void	ft_here_doc(t_var *var);
+void	ft_here_doc_first_cmd(t_var *var);
+void	ft_here_doc_last_cmd(t_var *var);
 #endif
