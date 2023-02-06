@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:24 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 16:38:48 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 10:01:55 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	ft_parent(t_var *var)
 {
-	int	status;
-
-	if (waitpid(var->pid, &status, WNOHANG) == ERROR)
+	if (waitpid(var->pid, NULL, WNOHANG) == ERROR)
 		ft_error();
 	if (var->cmd_i != var->argc - 2)
 	{
