@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 11:38:20 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 12:02:22 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_init_variables(t_var *var, int argc, char *argv[], char *envp[])
 	var->argc = argc;
 	var->argv = argv;
 	var->envp = envp;
+	var->here_doc = 0;
+	var->limiter = NULL;
 	var->prev_pipe_fd = NONE;
 	var->cmd = NULL;
 	var->cmd_path = NULL;
@@ -55,6 +57,8 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc < 5)
 		return (1);
 	ft_init_variables(&var, argc, argv, envp);
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+		ft_here_doc(&var);
 	while (var.cmd_i < argc - 1)
 	{
 		ft_exec_cmd(&var);

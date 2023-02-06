@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:31 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 11:39:55 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/06 12:09:17 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,16 @@ static void	ft_last_cmd(t_var *var)
 		ft_error();
 }
 
+// static void	ft_here_doc_cmd(t_var *var)
+// {
+	// To do
+	// - here_doc 전용 로직
+// }
+
 void	ft_child(t_var *var)
 {
+	if (var->here_doc)
+		ft_here_doc_cmd(var);
 	if (var->cmd_i == 2)
 		ft_first_cmd(var);
 	else if (var->cmd_i == var->argc - 2)
