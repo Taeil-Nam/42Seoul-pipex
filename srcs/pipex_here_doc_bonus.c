@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:46:17 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/07 12:22:44 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 13:05:43 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ static void	ft_here_doc_get_input(t_var *var)
 	{
 		write(1, "pipe heredoc> ", 14);
 		input = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(input, var->limiter, ft_strlen(var->limiter)) == 0)
+		if (!input
+			||ft_strncmp(input, var->limiter, ft_strlen(var->limiter)) == 0)
 			break ;
 		write(temp_fd, input, ft_strlen(input));
+		free(input);
 	}
+	free(input);
 	if (close(temp_fd) == ERROR)
 		ft_error();
 }
