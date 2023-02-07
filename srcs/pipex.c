@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/07 12:27:06 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 16:17:00 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	ft_init_variables(t_var *var, int argc, char *argv[], char *envp[])
 	var->cmd_count = argc - 3;
 	var->cmd_isin = 0;
 	i = 0;
-	while (ft_strncmp(var->envp[i], "PATH=", 5) != 0)
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
-	path = var->envp[i] + 5;
+	path = envp[i] + 5;
 	var->paths = ft_split(path, ':');
 	if (var->paths == NULL)
 		exit(EXIT_FAILURE);

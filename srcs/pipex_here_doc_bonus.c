@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:46:17 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/07 13:05:43 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 16:58:02 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_here_doc_first_cmd(t_var *var)
 void	ft_here_doc_last_cmd(t_var *var)
 {
 	var->outfile_fd = open(var->argv[var->argc - 1], O_WRONLY
-			| O_CREAT | O_APPEND | 0644);
+			| O_CREAT | O_APPEND, 0644);
 	if (var->outfile_fd == ERROR)
 		ft_error();
 	if (dup2(var->prev_pipe_fd, STDIN_FILENO) == ERROR)

@@ -1,6 +1,7 @@
 .normignore
 a.out
-pipex_old.c
 infile
 outfile
 test.c
+.gitignore
+README.md
