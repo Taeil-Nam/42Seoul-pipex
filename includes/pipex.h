@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:24:54 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/03 21:19:32 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 12:26:41 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_var
 	char	**cmd;
 	char	*cmd_path;
 	int		cmd_i;
+	int		cmd_count;
 	int		cmd_isin;
 }			t_var;
 

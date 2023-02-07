@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:54:39 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 19:14:02 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 12:10:39 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ void	ft_init_variables(t_var *var, int argc, char *argv[], char *envp[])
 	var->cmd = NULL;
 	var->cmd_path = NULL;
 	var->cmd_i = 2;
+	var->cmd_count = argc - 3;
 	var->cmd_isin = 0;
 	i = 0;
-	while (ft_strncmp(var->envp[i], "PATH=", 5) != 0)
+	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
-	path = var->envp[i] + 5;
+	path = envp[i] + 5;
 	var->paths = ft_split(path, ':');
 	if (var->paths == NULL)
 		exit(EXIT_FAILURE);
@@ -41,6 +42,7 @@ void	ft_here_doc_init(t_var *var)
 	var->here_doc = 1;
 	var->limiter = var->argv[2];
 	var->cmd_i = 3;
+	var->cmd_count = var->argc - 4;
 }
 
 void	ft_exec_cmd(t_var *var)
@@ -73,9 +75,14 @@ int	main(int argc, char *argv[], char *envp[])
 		var.cmd_i++;
 	}
 	i = 0;
-	while (i++ < argc - 3)
+	while (i++ < var.cmd_count)
 	{
 		if (wait(NULL) == ERROR)
+			ft_error();
+	}
+	if (var.here_doc)
+	{
+		if (unlink("temp") == ERROR)
 			ft_error();
 	}
 	return (0);

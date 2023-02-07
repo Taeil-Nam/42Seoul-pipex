@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:46:17 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 16:05:51 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/07 12:22:44 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_here_doc_get_input(t_var *var)
 	int		temp_fd;
 
 	temp_fd = open("temp", O_WRONLY | O_CREAT
-			| O_EXCL | O_TRUNC | O_APPEND, 0644);
+			| O_TRUNC | O_APPEND, 0644);
 	if (temp_fd == ERROR)
 		ft_error();
 	while (1)
