@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:46:17 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/07 16:58:02 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/08 16:35:20 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_here_doc_first_cmd(t_var *var)
 		ft_error();
 	if (close(var->pipe_fd[OUT]) == ERROR)
 		ft_error();
-	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
 		ft_error();
 }
@@ -71,7 +70,6 @@ void	ft_here_doc_last_cmd(t_var *var)
 		ft_error();
 	if (close(var->outfile_fd) == ERROR)
 		ft_error();
-	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
 		ft_error();
 }

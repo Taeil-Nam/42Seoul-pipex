@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:31 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/06 16:03:35 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/08 14:04:45 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ft_first_cmd(t_var *var)
 		ft_error();
 	if (close(var->pipe_fd[OUT]) == ERROR)
 		ft_error();
-	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
 		ft_error();
 }
@@ -44,7 +43,6 @@ static void	ft_middle_cmd(t_var *var)
 		ft_error();
 	if (close(var->pipe_fd[OUT]) == ERROR)
 		ft_error();
-	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
 		ft_error();
 }
@@ -63,13 +61,14 @@ static void	ft_last_cmd(t_var *var)
 		ft_error();
 	if (close(var->outfile_fd) == ERROR)
 		ft_error();
-	ft_find_cmd_path(var);
 	if (execve(var->cmd_path, var->cmd, var->envp) == ERROR)
 		ft_error();
 }
 
 void	ft_child(t_var *var)
 {
+	ft_find_cmd_path(var);
+	ft_make_cmd_if_awk_sed(var);
 	if (var->here_doc)
 	{
 		if (var->cmd_i == 3)

@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:24:54 by tnam              #+#    #+#             */
-/*   Updated: 2023/02/07 12:26:41 by tnam             ###   ########.fr       */
+/*   Updated: 2023/02/08 16:45:25 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,21 @@ typedef struct s_var
 	int		cmd_isin;
 }			t_var;
 
+typedef struct s_parser
+{
+	int		i;
+	int		start;
+	int		end;
+	int		str_i;
+	int		str_count;
+	int		str_len;
+	char	*cmd;
+	char	**result;
+}			t_parser;
+
 void	ft_child(t_var *var);
 void	ft_parent(t_var *var);
 void	ft_find_cmd_path(t_var *var);
+void	ft_make_cmd_if_awk_sed(t_var *var);
 void	ft_error(void);
 #endif
